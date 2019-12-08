@@ -1,0 +1,23 @@
+Pola = input('Enter set of data points in a n x 2 matrix: ');
+n = length(Pola);
+listahan = [];
+if n <= 10
+    for deg = 1:n
+        fit = polyfit(Pola(:,1),Pola(:,2),deg);
+        e = Pola(:,2) - polyval(fit,Pola(:,1));
+        normal = norm(e);
+        listahan(deg) = normal;
+    end
+else
+    for deg = 1:10
+        fit = polyfit(Pola(:,1),Pola(:,2),deg);
+        e = Pola(:,2) - polyval(fit,Pola(:,1));
+        normal = norm(e);
+        listahan(deg) = normal;
+    end
+end
+sorted = sort(listahan);
+leastIndex = find(listahan==sorted(1));
+bestFitLine = polyfit(Pola(:,1),Pola(:,2),leastIndex(1));
+disp('The coefficients of the polynomial that would best approximate the given data points: ')
+disp(bestFitLine);
